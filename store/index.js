@@ -3,12 +3,13 @@ import axios from 'axios'
 
 // initial state
 const state = {
-  repos: []
+  repos: [],
+  name: ''
 }
 
 // getters
 const getters = {
-  getReposList(state) {
+  getRepos(state) {
     return state.repos
   }
 }
@@ -17,14 +18,17 @@ const getters = {
 const mutations = {
   SET_REPO(state, respos) {
     state.repos = respos
+  },
+  SET_NAME(state, name) {
+    state.name = name
   }
 }
 
 // actions
 const actions = {
-  async getRepos({ commit }) {
+  async getRepos({ commit, state }) {
     const { data } = await axios.get(
-      `https://api.github.com/users/GorilaNaranja/repos`
+      `https://api.github.com/users/${state.name}/repos`
     )
     commit('SET_REPO', data)
   }
