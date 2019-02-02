@@ -1,9 +1,9 @@
 <template>
   <div>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <img src="https://loremflickr.com/320/240/" width="112" height="28">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
         </a>
       </div>
 
@@ -16,6 +16,7 @@
           <nuxt-link class="navbar-item" to="/projects">
             Projects
           </nuxt-link>
+
 
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
@@ -43,11 +44,10 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">
-                Log in
+              <a class="button is-danger">
+                <strong>
+                  Welcome {{ getName }}
+                </strong>
               </a>
             </div>
           </div>
@@ -56,7 +56,7 @@
     </nav>
 
     <div class="columns">
-      <aside class="column is-3">
+      <aside class="column is-2">
         <ul class="menu-list">
           <li
             v-for="(item, key) of items"
@@ -94,6 +94,11 @@ export default {
           to: { name: 'projects' }
         }
       ]
+    }
+  },
+  computed: {
+    getName() {
+      return this.$store.state.name
     }
   }
 }
