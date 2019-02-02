@@ -21,20 +21,16 @@
           </p>
         </div>
       </div>
-
       <a class="title is-4" :href="repo.html_url">
         {{ repo.name }}
       </a>
-
       <div class="content-content">
         <p>{{ repo.description }}</p>
       </div>
+      <footer class="card-footer">
+        <slot />
+      </footer>
     </div>
-    <footer class="card-footer">
-      <a href="#" class="card-footer-item">
-        See project
-      </a>
-    </footer>
   </div>
 </template>
 
