@@ -43,26 +43,35 @@
       </div>
 
       <div class="column is-one-quarter">
-        <div class="columns">
+        <!-- <p class="title is-5">
+          States Panel
+        </p> -->
+        <div class="columns box shadow-card">
           <div class="column column-gap">
             <a :class="repo.has_wiki ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
               <p>Has wiki</p><br>
-            </a>
+            </a><br>
             <a :class="repo.private ? 'button is-small is-success is-fullwidth' : 'button  is-small is-danger is-fullwidth'">
               <p>Is private</p><br>
-            </a>
+            </a><br>
             <a :class="repo.has_wiki ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
               <p>Fork</p><br>
-            </a>
+            </a><br>
+            <a :class="repo.has_projects ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
+              <p>Has projects</p><br>
+            </a><br>
+          </div>
+
+          <div class="column column-gap">
             <a :class="repo.has_issues ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
               <p>Has issues</p><br>
-            </a>
+            </a><br>
             <a :class="repo.has_downloads ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
               <p>Downloads</p><br>
-            </a>
+            </a><br>
             <a :class="repo.has_pages ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
               <p>Has pages</p><br>
-            </a>
+            </a><br>
             <a :class="repo.archived ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
               <p>Archived</p><br>
             </a>
