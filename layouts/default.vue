@@ -1,9 +1,13 @@
 <template>
   <div>
-    <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        <a class="navbar-item">
+          <a class="button is-danger" href="/">
+            <strong>
+              {{ getName }}
+            </strong>
+          </a>
         </a>
       </div>
 
@@ -40,24 +44,12 @@
             </div>
           </div>
         </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-danger">
-                <strong>
-                  Welcome {{ getName }}
-                </strong>
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </nav>
 
     <div class="columns">
-      <aside class="column is-2">
-        <ul class="menu-list">
+      <aside class="column is-2 is-danger">
+        <ul class="menu-list is-link">
           <li
             v-for="(item, key) of items"
             :key="key"

@@ -21,60 +21,60 @@
     <div class="columns">
       <div class="column is-one-quarter">
         <img :src="repo.owner.avatar_url"></img>
+        <a class="button is-danger is-fullwidth" :href="repo.html_url">
+          <img class="icon" src="https://image.flaticon.com/icons/svg/25/25231.svg">
+          <p>Visit project</p>
+          </img>
+        </a>
       </div>
       <div class="column">
         <p class="subtitle is-5 is-spaced">
-          Author: <i>{{ repo.owner.login }}</i> <br>
-          Type: <i>{{ repo.owner.type }}</i> <br>
-          Created at: <i>{{ formatDate(repo.created_at) }}</i> <br>
-          Updated at: <i>{{ formatDate(repo.updated_at) }}</i> <br>
-          Pushed at: <i>{{ formatDate(repo.pushed_at) }}</i> <br>
-          Default branch: <i>{{ repo.default_branch }}</i> <br>
-          Size: <i>{{ repo.size }} MB</i> <br>
-          <!-- License: <i>{{ repo.license }}</i> <br> -->
+          <i> Author: {{ repo.owner.login }}</i>
         </p>
+        <i>Type: {{ repo.owner.type }}</i> <br>
+        <i>Created at: {{ formatDate(repo.created_at) }}</i> <br>
+        <i>Updated at: {{ formatDate(repo.updated_at) }}</i> <br>
+        <i>Pushed at: {{ formatDate(repo.pushed_at) }}</i> <br>
+        <i>Default branch: {{ repo.default_branch }}</i> <br>
+        <i>Size: {{ repo.size }} MB</i> <br>
+        <i v-if="repo.license && repo.license.name">
+          License: {{ repo.license.name }}
+        </i>
       </div>
-      <div
-        class="column is-one-fifth text-right"
-      >
-        Has wiki:
-        <a :class="repo.has_wiki ? 'button is-small is-success' : 'button is-small is-danger'">
-          <span class="icon is-small">
-            <i class="fas fa-bold">
-              W
-            </i>
-          </span>
-        </a>
-        <br>
 
-        Is private:
-        <a :class="repo.private ? 'button is-small is-success' : 'button  is-small is-danger'">
-          <span class="icon is-small">
-            <i class="fas fa-bold">
-              P
-            </i>
-          </span>
-        </a>
-        <br>
-        </p>
+      <div class="column is-one-quarter">
+        <div class="columns">
+          <div class="column column-gap">
+            <a :class="repo.has_wiki ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
+              <p>Has wiki</p><br>
+            </a>
+            <a :class="repo.private ? 'button is-small is-success is-fullwidth' : 'button  is-small is-danger is-fullwidth'">
+              <p>Is private</p><br>
+            </a>
+            <a :class="repo.has_wiki ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
+              <p>Fork</p><br>
+            </a>
+            <a :class="repo.has_issues ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
+              <p>Has issues</p><br>
+            </a>
+            <a :class="repo.has_downloads ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
+              <p>Downloads</p><br>
+            </a>
+            <a :class="repo.has_pages ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
+              <p>Has pages</p><br>
+            </a>
+            <a :class="repo.archived ? 'button is-small is-success is-fullwidth' : 'button is-small is-danger is-fullwidth'">
+              <p>Archived</p><br>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
     <hr>
 
     <div class="columns">
-      <div class="column is-half">
-        <ul>
-          <p class="subtitle is-6">
-            Bytes of code written in that language:
-          </p>
-          <li v-for="(language, key, index) in languages" :key="language">
-            {{ key }} : {{ Math.floor((language*100)/total) }}%
-            <progress :class="colors[index]" :value="(language*100)/total" max="100" />
-          </li>
-        </ul>
-      </div>
-      <div class="column is-half text-center">
+      <div class="column">
         <div class="field is-grouped is-grouped-multiline text-center">
           <div class="control">
             <div class="tags has-addons">
@@ -83,6 +83,26 @@
               </span>
               <span class="tag is-info" :href="repo.html_url">
                 {{ repo.forks }}
+              </span>
+            </div>
+          </div>
+          <div class="control">
+            <div class="tags has-addons">
+              <span class="tag is-dark">
+                Forks count
+              </span>
+              <span class="tag is-info">
+                {{ repo.forks_count }}
+              </span>
+            </div>
+          </div>
+          <div class="control">
+            <div class="tags has-addons">
+              <span class="tag is-dark">
+                Watchers
+              </span>
+              <span class="tag is-primary">
+                {{ repo.watchers }}
               </span>
             </div>
           </div>
@@ -99,18 +119,57 @@
           <div class="control">
             <div class="tags has-addons">
               <span class="tag is-dark">
-                Watchers
+                Open issues count
               </span>
-              <span class="tag is-primary">
-                {{ repo.watchers }}
+              <span class="tag is-success">
+                {{ repo.open_issues_count }}
+              </span>
+            </div>
+          </div>
+          <div class="control">
+            <div class="tags has-addons">
+              <span class="tag is-dark">
+                Subscribers
+              </span>
+              <span class="tag is-danger">
+                {{ repo.subscribers_count }}
               </span>
             </div>
           </div>
         </div>
-        <hr>
-        <a class="button is-info" :href="repo.html_url">
-          Visit project
-        </a>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="columns">
+      <div class="column is-half">
+        <ul>
+          <p class="subtitle is-6">
+            Bytes of code written in that language:
+          </p>
+          <li v-for="(language, key, index) in languages" :key="language">
+            {{ key }} : {{ Math.round(((language*100)/total)*100)/100 }}%
+            <progress :class="colors[index]" :value="(language*100)/total" max="100" />
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="columns">
+      <div class="column is-multiline">
+        <div class="title is-4">
+          Contributors
+        </div>
+        <div
+          v-for="contributor in contributors"
+          :key="contributor.id"
+          class="column is-quarter-fifths"
+        >
+          <ContributorCard :contributor="contributor" :image="contributor.avatar_url" />
+        </div>
       </div>
     </div>
   </section>
@@ -119,30 +178,44 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import ContributorCard from '~/components/ContributorCard'
 
 export default {
+  components: {
+    ContributorCard
+  },
   data() {
     return {
       colors: [
+        'progress is-danger',
         'progress is-primary',
         'progress is.info',
         'progress is-success',
         'progress is-dark',
         'progress is-warning',
-        'progress is-danger'
+        'progress is-danger',
+        'progress is-primary',
+        'progress is.info',
+        'progress is-success',
+        'progress is-dark',
+        'progress is-warning',
+        'progress is-danger',
+        'progress is-primary',
+        'progress is.info',
+        'progress is-success',
+        'progress is-dark',
+        'progress is-warning'
       ]
     }
   },
   async asyncData({ params }) {
-    // TODO DELETE TOKEN
     const { data: repo } = await axios.get(
-      `https://api.github.com/repositories/${params.id}`,
-      {
-        headers: { Authorization: `f300956df3c28fdef2f08a30844d17057cd4a86f` }
-      }
+      `https://api.github.com/repositories/${params.id}`
     )
     const { data: languages } = await axios.get(repo.languages_url)
-    return { repo, languages }
+    const { data: contributors } = await axios.get(repo.contributors_url)
+
+    return { repo, languages, contributors }
   },
   computed: {
     total() {

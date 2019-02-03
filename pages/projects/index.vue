@@ -20,9 +20,6 @@
           <nuxt-link :to="'/projects/'+repo.id">
             Details
           </nuxt-link>
-          <!-- <nuxt-child :to="{name:'Porjects-id', params:{repo}}">
-            Details
-          </nuxt-child> -->
         </card>
       </div>
     </div>
